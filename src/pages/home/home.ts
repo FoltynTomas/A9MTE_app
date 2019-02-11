@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
 import { RestProvider } from '../../providers/rest/rest';
+import { StorageProvider } from '../../providers/storage/storage';
 
 // Zone for updating UI
 import { NgZone } from '@angular/core';
@@ -12,13 +13,18 @@ import { NgZone } from '@angular/core';
 })
 export class HomePage {
 
-  private place:string = '';
   private weatherResponse;
 
-  constructor(public navCtrl: NavController, private weather: RestProvider) {
-    this.place = 'Zlin,cz';
+  constructor(public navCtrl: NavController, private weather: RestProvider, private storage: StorageProvider) {
+    var settings = this.storage.getSettings();
+    var place = settings[0];
+    var units = settings[1];
 
-    console.log(this.place);
+    
+    if (place && units)
+    {
+      console.log(place);
+    }
 
     // pass text for translation to translation service
     //this.weather.getWeather(this.place).subscribe( (result) => {
