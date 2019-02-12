@@ -62,9 +62,9 @@ export class HomePage {
   {
     this.city = actualweather.name;
     this.weatherText = actualweather.weather[0].description;
-    this.temp = this.GetRealTemp(actualweather.main.temp);
-    this.pressure = actualweather.main.pressure + " hPA";
-    this.humidity = actualweather.main.humidity + "%";    
+    this.temp = "Temp: " + this.GetRealTemp(actualweather.main.temp);
+    this.pressure = "PRESS: " + actualweather.main.pressure + " hPA";
+    this.humidity = "HUM: " + actualweather.main.humidity + "%";    
     this.imgUrl = "http://openweathermap.org/img/w/" + actualweather.weather[0].icon + ".png";
   }
 
