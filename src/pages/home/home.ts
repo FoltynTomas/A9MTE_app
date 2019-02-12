@@ -17,34 +17,68 @@ export class HomePage {
   private humidity:string;
   private imgUrl:string;
 
-  private units:string;
+  private units:string = "";
+  private place:string = "";
 
   constructor(public navCtrl: NavController, private weather: RestProvider, private storage: StorageProvider) {
-    this.storage.getUnits().then(val => {
-      console.log(val);
-      if(val)
+    // this.storage.getUnits().then(val => {
+    //   if(val)
+    //   {
+    //     this.units = val;
+    //     this.storage.getLastWeather().then(val => {     
+    //       if(val)
+    //       {
+    //         //console.log(val);  
+    //         this.PopulateForm(val);
+    //       }      
+    //     });
+    //   }
+    // });
+
+    // this.storage.getPlace().then(place => {
+    //   if(place)
+    //   {
+    //     this.place = place;
+    //     this.weather.getWeather(place).subscribe( (result) => {
+    //       //console.log(result);
+    //       this.storage.setLastWeather(result);
+    //       this.PopulateForm(result);
+    //     });  
+    //   }
+    // });
+  }
+
+  ionViewWillEnter()
+  {
+    this.storage.getPlace().then(place => {
+      if(place)
       {
-        this.units = val;
+        if (place != this.place)
+        {
+          this.place = place;
+          // this.weather.getWeather(place).subscribe( (result) => {
+          //   //console.log(result);
+          //   this.storage.setLastWeather(result);
+          //   this.PopulateForm(result);
+          // });    
+        }
       }
     });
 
-    this.storage.getLastWeather().then(val => {     
+    this.storage.getUnits().then(val => {
       if(val)
       {
-        console.log(val);  
-        this.PopulateForm(val);
-      }      
-    });
-
-    this.storage.getPlace().then(place => {
-      console.log(place);
-      if(place)
-      {
-        this.weather.getWeather(place).subscribe( (result) => {
-          console.log(result);
-          this.storage.setLastWeather(result);
-          this.PopulateForm(result);
-        });  
+        if (val != this.units)
+        {
+          this.units = val;
+          this.storage.getLastWeather().then(val => {     
+            if(val)
+            {
+              //console.log(val);  
+              this.PopulateForm(val);
+            }      
+          });  
+        }
       }
     });
   }

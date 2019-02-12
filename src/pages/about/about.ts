@@ -14,10 +14,14 @@ export class AboutPage {
   constructor(public navCtrl: NavController, private storage: StorageProvider) {
   }
 
-  public saveClick(pText:string, uText:string)
+  public saveClick(pText:string)
   {
-    console.log(pText);
-    this.storage.setSettings(pText, uText);
+    //console.log(pText + ", " + this.radioValue);
+    this.storage.setSettings(pText, this.radioValue);
   }
 
+  public unitsChanged(value:string)
+  {
+    this.radioValue = value;
+  }
 }

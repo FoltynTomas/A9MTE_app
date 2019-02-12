@@ -11,9 +11,16 @@
     <ion-item>
       <ion-input #pText type="text" placeholder="Place,State"></ion-input>
     </ion-item>
-    <ion-item>
-      <ion-input #uText type="text" placeholder="Units"></ion-input>
-    </ion-item>
-    <button (click)="saveClick(pText.value, uText.value)" ion-button full>Save</button>
+    <ion-list radio-group (ionChange)="unitsChanged($event)">
+      <ion-item>
+        <ion-label>Celsius</ion-label>
+        <ion-radio slot="start" value="celsius" checked></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>Fahrenheit</ion-label>
+        <ion-radio slot="start" value="fahrenheit"></ion-radio>
+      </ion-item>
+    </ion-list>
+    <button (click)="saveClick(pText.value)" ion-button full>Save</button>
   </ion-list>  
 </ion-content>
