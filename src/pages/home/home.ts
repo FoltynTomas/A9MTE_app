@@ -4,8 +4,7 @@ import { NavController } from 'ionic-angular';
 import { RestProvider } from '../../providers/rest/rest';
 import { StorageProvider } from '../../providers/storage/storage';
 
-// Zone for updating UI
-import { NgZone } from '@angular/core';
+import 'rxjs/add/operator/map';
 
 @Component({
   selector: 'page-home',
@@ -13,25 +12,54 @@ import { NgZone } from '@angular/core';
 })
 export class HomePage {
 
-  private weatherResponse;
+  private city:string = "";
+  private weatherText:string = "";
+  private temp:string;
+  private pressure:string;
+  private humidity:string;
+
+  private units:string;
 
   constructor(public navCtrl: NavController, private weather: RestProvider, private storage: StorageProvider) {
-    var settings = this.storage.getSettings();
-    var place = settings[0];
-    var units = settings[1];
-
-    
-    if (place && units)
-    {
+    //debugger;
+    this.storage.getPlace().then(place => {
       console.log(place);
-    }
+      // this.weather.getWeather(place).subscribe( (result) => {
+      //   console.log(result);
+      //   this.storage.setLastWeather(result);
+      //   this.PopulateForm(result);
+      // });
+    });
 
-    // pass text for translation to translation service
-    //this.weather.getWeather(this.place).subscribe( (result) => {
-      // could be run outside of this NgZone, run it always inside, for refresh UI
-        //this.weatherResponse = result;
-        //console.log(this.weatherResponse);
-      //});
+    this.storage.getUnits().then(val => {
+      console.log(val);
+      this.units = val;
+    });
+
+    this.storage.gerLastWeather().then(val => {     
+      if(val)
+      {
+        console.log(val);  
+        this.PopulateForm(val);
+      }      
+    });
   }
 
+  public PopulateForm(actualweather)
+  {
+    this.city = actualweather.name;
+    this.weatherText = actualweather.weather[0].description;
+    this.temp = this.GetRealTemp(actualweather.main.temp);
+    this.pressure = actualweather.main.pressure + "PA";
+    this.humidity = actualweather.main.humidity + "%";
+  }
+
+  public GetRealTemp(temp)
+  {
+    if (this.units == "celsius")
+    {
+      var celsius = temp - 273.15;
+      return celsius.toFixed(1) + "C"
+    }
+  }
 }

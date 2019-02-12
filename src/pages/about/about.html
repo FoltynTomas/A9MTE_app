@@ -9,15 +9,11 @@
 <ion-content padding>
   <ion-list>
     <ion-item>
-      <ion-input #tText type="place,state" placeholder="Place"></ion-input>
+      <ion-input #pText type="text" placeholder="Place,State"></ion-input>
     </ion-item>
     <ion-item>
-        <ion-label>Units</ion-label>
-        <ion-select placeholder="Select One" (ionChange)="radioChanged()">
-          <ion-select-option value="c">Celsius</ion-select-option>
-          <ion-select-option value="f">Farnheit</ion-select-option>
-        </ion-select>
+      <ion-input #uText type="text" placeholder="Units"></ion-input>
     </ion-item>
-    <button (click)="saveClick(tText.value)" ion-button full>Save</button>
+    <button (click)="saveClick(pText.value, uText.value)" ion-button full>Save</button>
   </ion-list>  
 </ion-content>
