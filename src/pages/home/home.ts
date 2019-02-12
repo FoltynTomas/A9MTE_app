@@ -21,31 +21,6 @@ export class HomePage {
   private place:string = "";
 
   constructor(public navCtrl: NavController, private weather: RestProvider, private storage: StorageProvider) {
-    // this.storage.getUnits().then(val => {
-    //   if(val)
-    //   {
-    //     this.units = val;
-    //     this.storage.getLastWeather().then(val => {     
-    //       if(val)
-    //       {
-    //         //console.log(val);  
-    //         this.PopulateForm(val);
-    //       }      
-    //     });
-    //   }
-    // });
-
-    // this.storage.getPlace().then(place => {
-    //   if(place)
-    //   {
-    //     this.place = place;
-    //     this.weather.getWeather(place).subscribe( (result) => {
-    //       //console.log(result);
-    //       this.storage.setLastWeather(result);
-    //       this.PopulateForm(result);
-    //     });  
-    //   }
-    // });
   }
 
   ionViewWillEnter()
@@ -56,11 +31,11 @@ export class HomePage {
         if (place != this.place)
         {
           this.place = place;
-          // this.weather.getWeather(place).subscribe( (result) => {
-          //   //console.log(result);
-          //   this.storage.setLastWeather(result);
-          //   this.PopulateForm(result);
-          // });    
+          this.weather.getWeather(place).subscribe( (result) => {
+            //console.log(result);
+            this.storage.setLastWeather(result);
+            this.PopulateForm(result);
+          });    
         }
       }
     });

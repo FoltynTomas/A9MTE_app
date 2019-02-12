@@ -24,24 +24,6 @@ export class ContactPage {
   private img48Url:string;
 
   constructor(public navCtrl: NavController, private weather: RestProvider, private storage: StorageProvider) {
-    // this.storage.getUnits().then(val => {
-    //   if(val)
-    //   {
-    //     this.units = val;
-    //   }
-    // });
-
-    // this.storage.getPlace().then(place => {
-    //   console.log(place);
-    //   if(place)
-    //   {
-    //     this.place = place;
-    //     this.weather.getForecast(place).subscribe( (result) => {
-    //       console.log(result);
-    //       this.PopulateForm(result);
-    //     });  
-    //   }
-    // });
   }
 
   ionViewWillEnter()

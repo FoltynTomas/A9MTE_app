@@ -9,7 +9,7 @@ import { StorageProvider } from '../../providers/storage/storage';
 })
 export class AboutPage {
 
-  private radioValue:string;
+  private radioValue:string = "celsius";
 
   constructor(public navCtrl: NavController, private storage: StorageProvider) {
   }
