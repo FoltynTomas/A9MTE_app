@@ -24,16 +24,21 @@ export class ContactPage {
 
   constructor(public navCtrl: NavController, private weather: RestProvider, private storage: StorageProvider) {
     this.storage.getUnits().then(val => {
-      console.log(val);
-      this.units = val;
+      if(val)
+      {
+        this.units = val;
+      }
     });
 
     this.storage.getPlace().then(place => {
       console.log(place);
-      this.weather.getForecast(place).subscribe( (result) => {
-        console.log(result);
-        this.PopulateForm(result);
-      });
+      if(place)
+      {
+        this.weather.getForecast(place).subscribe( (result) => {
+          console.log(result);
+          this.PopulateForm(result);
+        });  
+      }
     });
   }
 
