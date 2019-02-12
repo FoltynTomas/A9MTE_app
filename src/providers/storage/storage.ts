@@ -36,7 +36,7 @@ export class StorageProvider {
     this.storage.set('lastWeather', weather);
   }
 
-  gerLastWeather() : Promise<any>
+  getLastWeather() : Promise<any>
   {
     return this.storage.get('lastWeather');
   }

@@ -4,8 +4,6 @@ import { NavController } from 'ionic-angular';
 import { RestProvider } from '../../providers/rest/rest';
 import { StorageProvider } from '../../providers/storage/storage';
 
-import 'rxjs/add/operator/map';
-
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -17,11 +15,24 @@ export class HomePage {
   private temp:string;
   private pressure:string;
   private humidity:string;
+  private imgUrl:string;
 
   private units:string;
 
   constructor(public navCtrl: NavController, private weather: RestProvider, private storage: StorageProvider) {
-    //debugger;
+    this.storage.getUnits().then(val => {
+      console.log(val);
+      this.units = val;
+    });
+
+    this.storage.getLastWeather().then(val => {     
+      if(val)
+      {
+        console.log(val);  
+        this.PopulateForm(val);
+      }      
+    });
+
     this.storage.getPlace().then(place => {
       console.log(place);
       // this.weather.getWeather(place).subscribe( (result) => {
@@ -30,19 +41,6 @@ export class HomePage {
       //   this.PopulateForm(result);
       // });
     });
-
-    this.storage.getUnits().then(val => {
-      console.log(val);
-      this.units = val;
-    });
-
-    this.storage.gerLastWeather().then(val => {     
-      if(val)
-      {
-        console.log(val);  
-        this.PopulateForm(val);
-      }      
-    });
   }
 
   public PopulateForm(actualweather)
@@ -50,8 +48,9 @@ export class HomePage {
     this.city = actualweather.name;
     this.weatherText = actualweather.weather[0].description;
     this.temp = this.GetRealTemp(actualweather.main.temp);
-    this.pressure = actualweather.main.pressure + "PA";
-    this.humidity = actualweather.main.humidity + "%";
+    this.pressure = actualweather.main.pressure + " hPA";
+    this.humidity = actualweather.main.humidity + "%";    
+    this.imgUrl = "http://openweathermap.org/img/w/" + actualweather.weather[0].icon + ".png";
   }
 
   public GetRealTemp(temp)
@@ -59,7 +58,16 @@ export class HomePage {
     if (this.units == "celsius")
     {
       var celsius = temp - 273.15;
-      return celsius.toFixed(1) + "C"
+      return celsius.toFixed(1) + "°C";
+    }
+    else if (this.units == "fahrenheit")
+    {
+      var fahrenheit = temp * (9/5) - 459.67;
+      return fahrenheit.toFixed(1) + "°F";
+    }
+    else
+    {
+      return temp.toFixed(1) + "K";
     }
   }
 }

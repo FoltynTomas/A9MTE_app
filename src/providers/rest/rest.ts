@@ -23,4 +23,9 @@ export class RestProvider {
     return response;
   }
 
+  getForecast(text):Observable<any> {
+    var url = 'http://api.openweathermap.org/data/2.5/forecast?q='+encodeURI(text)+'&APPID=ef789bd215d540568cf8a0a5d6d691cd'
+    var response = this.http.get(url).map(res => res.json());
+    return response;
+  }
 }

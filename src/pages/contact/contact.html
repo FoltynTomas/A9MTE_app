@@ -1,17 +1,56 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Contact
+      Weather Forecast
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <ion-list-header>Follow us on Twitter</ion-list-header>
-    <ion-item>
-      <ion-icon name="ionic" item-start></ion-icon>
-      @ionicframework
-    </ion-item>
-  </ion-list>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-label color="dark">+6 hours</ion-label>
+      </ion-col>
+      <ion-col>
+        <ion-label color="dark">{{temp6}}</ion-label>
+      </ion-col>
+      <ion-col>
+        <ion-img src="{{img6Url}}"></ion-img>
+      </ion-col>
+    </ion-row>      
+    <ion-row>
+        <ion-col>
+            <ion-label color="dark">+12 hours</ion-label>
+          </ion-col>
+          <ion-col>
+            <ion-label color="dark">{{temp12}}</ion-label>
+          </ion-col>
+          <ion-col>
+            <ion-img src="{{img12Url}}"></ion-img>
+          </ion-col>
+        </ion-row>  
+    <ion-row>
+        <ion-col>
+            <ion-label color="dark">+24 hours</ion-label>
+          </ion-col>
+          <ion-col>
+            <ion-label color="dark">{{temp24}}</ion-label>
+          </ion-col>
+          <ion-col>
+            <ion-img src="{{img24Url}}"></ion-img>
+          </ion-col>
+        </ion-row>  
+    <ion-row>
+        <ion-col>
+            <ion-label color="dark">+48 hours</ion-label>
+          </ion-col>
+          <ion-col>
+            <ion-label color="dark">{{temp48}}</ion-label>
+          </ion-col>
+          <ion-col>
+            <ion-img src="{{img48Url}}"></ion-img>
+          </ion-col>
+        </ion-row>  
+  </ion-grid>
 </ion-content>
